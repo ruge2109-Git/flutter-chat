@@ -1,9 +1,14 @@
+import 'package:chat_flutter/helpers/mostrar_alerta.dart';
+import 'package:chat_flutter/helpers/transicion_rutas.dart';
 import 'package:chat_flutter/pages/login_page.dart';
+import 'package:chat_flutter/pages/usuarios_page.dart';
+import 'package:chat_flutter/services/auth_service.dart';
 import 'package:chat_flutter/widgets/boton_azul.dart';
 import 'package:chat_flutter/widgets/custom_input.dart';
 import 'package:chat_flutter/widgets/labels.dart';
 import 'package:chat_flutter/widgets/logo.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 
 class RegistrarPage extends StatelessWidget {
@@ -55,6 +60,9 @@ class __FormState extends State<_Form> {
 
   @override
   Widget build(BuildContext context) {
+
+    final authService = Provider.of<AuthService>(context);
+
     return Container(
       margin: EdgeInsets.only(top: 40),
       padding: EdgeInsets.symmetric(horizontal: 50),
@@ -79,11 +87,19 @@ class __FormState extends State<_Form> {
             textController: passwordCtrl,
             isPassword: true,
           ),
-          BotonAzul(texto: 'Registrar',function: (){
-            print(nombreCtrl.text);
-            print(emailCtrl.text);
-            print(passwordCtrl.text);
-          })
+          BotonAzul(texto: 'Registrar',function: (!authService.autenticando) 
+            ?() async{
+              FocusScope.of(context).unfocus();
+              final registrar = await authService.registrar(nombreCtrl.text,emailCtrl.text.trim(), passwordCtrl.text);
+              if ( registrar ==true) {
+                Navigator.pushReplacement(context, crearRuta(UsuariosPage()));
+              }
+              else{
+                mostrarAlerta(context, 'Error', registrar.toString());
+              }
+            }
+            : null
+          )
         ],
        ),
     );

@@ -11,7 +11,7 @@ class BotonAzul extends StatelessWidget {
     return TextButton(
       style: ButtonStyle(
         elevation: MaterialStateProperty.all<double>(2),
-        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+        backgroundColor: (function != null)? MaterialStateProperty.all<Color>(Colors.blue): MaterialStateProperty.all<Color>(Colors.blueGrey[400]),
         shape: MaterialStateProperty.all<StadiumBorder>(StadiumBorder())
       ),
       onPressed: function,
@@ -19,7 +19,7 @@ class BotonAzul extends StatelessWidget {
         width: double.infinity,
         height: 30,
         child: Center(
-          child: Text(texto, style: TextStyle(color: Colors.white, fontSize: 17))
+          child: Text(texto, style: TextStyle(color: (function!=null) ? Colors.white: Colors.black54, fontSize: 17))
         )
       ),
     );

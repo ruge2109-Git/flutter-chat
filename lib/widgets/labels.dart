@@ -1,4 +1,5 @@
 
+import 'package:chat_flutter/helpers/transicion_rutas.dart';
 import 'package:flutter/material.dart';
 class Labels extends StatelessWidget {
 
@@ -24,7 +25,7 @@ class Labels extends StatelessWidget {
           GestureDetector(
             child: Text(this.subTitulo, style: TextStyle(color: Colors.blue[600],fontSize: 18,fontWeight: FontWeight.bold)),
             onTap: (){
-              Navigator.pushReplacement(context, _crearRuta());
+              Navigator.pushReplacement(context, crearRuta(pageRoute));
               // Navigator.pushReplacementNamed(context, 'registrar');
             },
           )
@@ -33,18 +34,18 @@ class Labels extends StatelessWidget {
     );
   }
 
-  Route<Object> _crearRuta() {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => pageRoute,
-      transitionDuration: Duration(milliseconds: 500), 
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        final curve = CurvedAnimation(parent: animation,curve: Curves.easeInOut);
-        return SlideTransition(
-          position: Tween<Offset>(begin: Offset(1, 0), end: Offset.zero).animate(curve),
-          child: child,
-        );
-      },
-    );
-  }
+  // Route<Object> _crearRuta() {
+  //   return PageRouteBuilder(
+  //     pageBuilder: (context, animation, secondaryAnimation) => pageRoute,
+  //     transitionDuration: Duration(milliseconds: 500), 
+  //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
+  //       final curve = CurvedAnimation(parent: animation,curve: Curves.easeInOut);
+  //       return SlideTransition(
+  //         position: Tween<Offset>(begin: Offset(1, 0), end: Offset.zero).animate(curve),
+  //         child: child,
+  //       );
+  //     },
+  //   );
+  // }
 
 }

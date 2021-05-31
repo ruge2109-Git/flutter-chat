@@ -1,3 +1,4 @@
+import 'package:chat_flutter/services/socket_service.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_flutter/helpers/mostrar_alerta.dart';
 import 'package:chat_flutter/helpers/transicion_rutas.dart';
@@ -60,6 +61,7 @@ class __FormState extends State<_Form> {
   Widget build(BuildContext context) {
 
     final authService = Provider.of<AuthService>(context);
+    final socketService = Provider.of<SocketService>(context);
 
 
     return Container(
@@ -85,6 +87,7 @@ class __FormState extends State<_Form> {
               FocusScope.of(context).unfocus();
               final login = await authService.login(emailCtrl.text.trim(), passwordCtrl.text);
               if ( login ) {
+                socketService.conectar();
                 Navigator.pushReplacement(context, crearRuta(UsuariosPage()));
               }
               else{

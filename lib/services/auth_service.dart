@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:chat_flutter/globals/environment.dart';
 import 'package:chat_flutter/models/login_response.dart';
